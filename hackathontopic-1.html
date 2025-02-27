@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPCE Estimator</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 43px;
+    top: 50px;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input, select {
+    padding: 8px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monthly Per Capita Expenditure (MPCE) Estimator</h1>
+        <form id="mpceForm">
+            <label for="income">Household Income (₹):</label>
+            <input type="number" id="income" required><br><br>
+
+            <label for="familySize">Family Size:</label>
+            <input type="number" id="familySize" required><br><br>
+
+            <label for="region">Region (Urban/Rural):</label>
+            <select id="region">
+                <option value="urban">Urban</option>
+                <option value="rural">Rural</option>
+            </select><br><br>
+
+            <button type="submit">Estimate MPCE</button>
+        </form>
+
+        <h2>Estimated MPCE: ₹<span id="mpceResult">0</span></h2>
+    </div>
+
+    <script>
+        // script.js
+document.getElementById("mpceForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Get input values
+    const income = parseFloat(document.getElementById("income").value);
+    const familySize = parseInt(document.getElementById("familySize").value);
+    const region = document.getElementById("region").value;
+
+    // Simplified coefficients for the model (just for demonstration)
+    let regionFactor = region === 'urban' ? 1.2 : 1.0;  // Urban households may have higher expenses
+
+    // Basic formula for estimation (example of a simple model)
+    const estimatedMPCE = (income / familySize) * 0.6 * regionFactor; // Coefficient of 0.6 for scaling
+
+    // Display the result
+    document.getElementById("mpceResult").textContent = estimatedMPCE.toFixed(2);
+});
+    </script>
+</body>
+</html>
